@@ -3,6 +3,7 @@ import {Head} from '@inertiajs/vue3';
 import ForumLayout from "@/Layouts/ForumLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import Post from "@/Components/Forum/Post.vue";
+import pluralize from "pluralize";
 
 const props = defineProps({
     discussion: Object,
@@ -28,6 +29,9 @@ const props = defineProps({
                             </template>
                             {{ discussion.title }}
                         </h1>
+                    </div>
+                    <div class="text-sm">
+                        {{ pluralize('reply', discussion.replies_count, true) }}
                     </div>
                 </div>
             </div>

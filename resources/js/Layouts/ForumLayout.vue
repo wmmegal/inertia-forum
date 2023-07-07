@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import AuthenticatedLayout from './Layout.vue'
+import AuthenticatedLayout from './AuthenticatedLayout.vue'
 </script>
 
 <style scoped>

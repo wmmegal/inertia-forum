@@ -15,6 +15,7 @@ class DiscussionResource extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'topic' => TopicResource::make($this->whenLoaded('topic')),
+            'replies_count' => $this->replies_count,
             'post' => PostResource::make($this->whenLoaded('post')),
             'latest_post' => PostResource::make($this->whenLoaded('latestPost')),
             'participants' => PublicUserResource::collection($this->whenLoaded('participants')),

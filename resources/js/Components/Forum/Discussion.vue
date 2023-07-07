@@ -25,6 +25,9 @@
                 <img :src="participant.avatar_url" v-for="participant in participants" :key="participant.id" class="h-6 w-6 rounded-full ring-2 ring-white first-of-type:w-7 first-of-type:h-7" :title="participant.username">
                 <span class="!ml-1 text-sm text-gray-600" v-if="discussion.participants.length > 3">+ {{ discussion.participants.length - 3 }} more</span>
             </div>
+            <div class="text-sm mt-3">
+                {{ pluralize('reply', discussion.replies_count, true) }}
+            </div>
         </div>
     </div>
 </template>
@@ -32,6 +35,7 @@
 <script setup>
 import {Link} from "@inertiajs/vue3";
 import {computed} from "vue";
+import pluralize from 'pluralize'
 
 const props = defineProps({
     discussion: Object
