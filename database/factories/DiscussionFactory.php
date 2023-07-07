@@ -2,19 +2,22 @@
 
 namespace Database\Factories;
 
+use App\Models\Discussion;
 use App\Models\Topic;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
-class TopicFactory extends Factory
+class DiscussionFactory extends Factory
 {
-    protected $model = Topic::class;
+    protected $model = Discussion::class;
 
     public function definition(): array
     {
         return [
-            'name' => fake()->words(3, true),
+            'user_id' => null,
+            'title' => $this->faker->name(),
             'slug' => $this->faker->slug(),
+            'topic_id' => rand(1, 3),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

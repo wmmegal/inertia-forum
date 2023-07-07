@@ -43,4 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function avatarUrl(): string
+    {
+        return 'https://www.gravatar.com/avatar/' . md5($this->email) . '.jpg';
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DiscussionResource;
+use App\Models\Discussion;
 use Illuminate\Http\Request;
 
 class ForumIndexController extends Controller
@@ -9,6 +11,13 @@ class ForumIndexController extends Controller
     public function __invoke(Request $request)
     {
         return inertia()
-            ->render('Home');
+            ->render('Forum/Index', [
+                'discussions' => DiscussionResource::collection(
+                    Discussion::with(['topic', 'post', 'latestPost.user', 'participants'])
+                        ->orderByPinned()
+                        ->orderByLastPost()
+                        ->paginate(5)
+                )
+            ]);
     }
 }
