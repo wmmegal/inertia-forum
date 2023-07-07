@@ -4,6 +4,7 @@ import ForumLayout from "@/Layouts/ForumLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import Post from "@/Components/Forum/Post.vue";
 import pluralize from "pluralize";
+import Navigation from "@/Components/Forum/Navigation.vue";
 
 const props = defineProps({
     discussion: Object,

@@ -15,11 +15,10 @@ class DiscussionShowController extends Controller
 
         return inertia()->render('Forum/Show', [
             'discussion' => $discussion,
-            'posts' => PostResource::collection(
-                Post::whereBelongsTo($discussion)
-                    ->with(['user', 'discussion'])
-                    ->oldest()
-                    ->paginate(10)
+            'posts' => PostResource::collection(Post::whereBelongsTo($discussion)
+                ->with(['user', 'discussion'])
+                ->oldest()
+                ->paginate(10)
             )
         ]);
     }
