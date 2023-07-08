@@ -7,6 +7,8 @@ import Pagination from "@/Components/Pagination.vue";
 import Navigation from "@/Components/Forum/Navigation.vue";
 import _omitBy from 'lodash.omitby';
 import _isEmpty from 'lodash.isempty';
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import useCreateDiscussion from "@/Composables/useCreateDiscussion.js";
 
 const props = defineProps({
     discussions: Object,
@@ -21,6 +23,8 @@ const filterTopic = (e) => {
         preserveScroll: true
     })
 }
+
+const {showCreateDiscussionForm} = useCreateDiscussion()
 </script>
 
 <template>
@@ -53,6 +57,10 @@ const filterTopic = (e) => {
         </div>
 
         <template #side>
+            <PrimaryButton @click="showCreateDiscussionForm" class="w-full flex justify-center h-10"
+                           v-if="$page.props.auth.user">
+                Start a discussion
+            </PrimaryButton>
             <Navigation :query="query"/>
         </template>
     </ForumLayout>

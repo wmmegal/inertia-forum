@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DiscussionShowController;
+use App\Http\Controllers\DiscussionStoreController;
 use App\Http\Controllers\ForumIndexController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -20,12 +21,14 @@ use Inertia\Inertia;
 
 
 Route::get('/', ForumIndexController::class)->name('home');
-Route::get('/discussions/{discussion:slug}', DiscussionShowController::class)->name('discussion.show');
+Route::get('/discussions/{discussion:slug}', DiscussionShowController::class)->name('discussions.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/discussions', DiscussionStoreController::class)->name('discussions.store');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

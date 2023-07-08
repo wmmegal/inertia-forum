@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 
 class Discussion extends Model
 {
@@ -22,12 +24,24 @@ class Discussion extends Model
         'updated_at'
     ];
 
-    public function scopeOrderByPinned(Builder $query)
+    protected static function booted(): void
+    {
+        static::created(function ($discussion) {
+            $discussion->update(['slug' => $discussion->title]);
+        });
+    }
+
+    public function setSlugAttribute($value): void
+    {
+        $this->attributes['slug'] = $this->id . '-' . Str::slug($value);
+    }
+
+    public function scopeOrderByPinned(Builder $query): void
     {
         $query->orderBy('pinned_at', 'desc');
     }
 
-    public function scopeOrderByLastPost(Builder $query)
+    public function scopeOrderByLastPost(Builder $query): void
     {
         $query->orderBy(
             Post::select('created_at')
@@ -76,7 +90,7 @@ class Discussion extends Model
             ->latestOfMany();
     }
 
-    public function participants()
+    public function participants(): HasManyThrough
     {
         return $this->hasManyThrough(User::class, Post::class, 'discussion_id', 'id', 'id', 'user_id')
             ->distinct();
