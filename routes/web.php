@@ -3,6 +3,7 @@
 use App\Http\Controllers\DiscussionShowController;
 use App\Http\Controllers\DiscussionStoreController;
 use App\Http\Controllers\ForumIndexController;
+use App\Http\Controllers\MarkdownController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::post('/discussions', DiscussionStoreController::class)->name('discussions.store');
+
+    Route::post('/markdown', MarkdownController::class)->name('markdown');
 });
 
 require __DIR__ . '/auth.php';

@@ -9,7 +9,7 @@
             </div>
         </template>
 
-        <template v-slot:main>
+        <template v-slot:main="{markdownPreviewEnabled}">
             <div class="flex items-start space-x-3">
                 <div class="flex-grow">
                     <div>
@@ -38,7 +38,7 @@
 
             <div class="mt-4">
                 <InputLabel for="body" value="Body" class="sr-only"/>
-                <Textarea id="body" class="w-full h-48 align-top" v-model="form.body"/>
+                <Textarea id="body" v-if="!markdownPreviewEnabled" class="w-full h-48 align-top" v-model="form.body"/>
                 <!--                <Mentionable :keys="['@']" offset="6" @search="mentionSearch" :items="mentionSearchResults" v-if="!markdownPreviewEnabled">-->
                 <!--                    <Textarea id="body" class="w-full h-48 align-top" v-model="form.body" />-->
 

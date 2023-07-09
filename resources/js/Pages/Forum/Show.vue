@@ -8,7 +8,8 @@ import Navigation from "@/Components/Forum/Navigation.vue";
 
 const props = defineProps({
     discussion: Object,
-    posts: Object
+    posts: Object,
+    query: Object
 })
 </script>
 
@@ -44,7 +45,7 @@ const props = defineProps({
         </div>
 
         <template #side>
-            side
+            <Navigation :query="query"/>
         </template>
     </ForumLayout>
 </template>

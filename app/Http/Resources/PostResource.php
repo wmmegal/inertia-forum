@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
+use Spatie\LaravelMarkdown\MarkdownRenderer;
 
 /** @mixin \App\Models\Post */
 class PostResource extends JsonResource
@@ -15,6 +16,7 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'user' => PublicUserResource::make($this->whenLoaded('user')),
             'body' => $this->body,
+            'body_markdown' => app(MarkdownRenderer::class)->toHtml($this->body),
             'created_at' => DateTimeResource::make($this->created_at),
             'body_preview' => Str::limit($this->body, 200)
         ];

@@ -11,7 +11,9 @@
                 <div>{{ post.user?.username || '[user deleted]' }}</div>
                 <div class="text-sm text-gray-500">Posted <time :datetime="post.created_at.datetime" :title="post.created_at.datetime">{{ post.created_at.human }}</time></div>
             </div>
-            {{ post.body }}
+            <div class="mt-3">
+                <div v-html="post.body_markdown" class="markdown"></div>
+            </div>
         </div>
     </div>
 </template>

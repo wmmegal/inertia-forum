@@ -21,8 +21,13 @@ export default defineConfig({
                     base: null,
                     includeAbsolute: false,
                 },
+                compilerOptions: {
+                    isCustomElement: (tag) => ['md-italic', 'markdown-toolbar', 'md-bold', 'md-code', 'md-link', 'md-mention'].includes(tag),
+                }
             },
         }),
-        svgLoader()
+        svgLoader({
+            svgo: false
+        }),
     ],
 });
