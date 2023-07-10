@@ -10,32 +10,10 @@ class DiscussionPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function reply(User $user): bool
     {
-
+        return true;
     }
 
-    public function view(User $user, Discussion $discussion): bool
-    {
-    }
 
-    public function create(User $user): bool
-    {
-    }
-
-    public function update(User $user, Discussion $discussion): bool
-    {
-    }
-
-    public function delete(User $user, Discussion $discussion): bool
-    {
-    }
-
-    public function restore(User $user, Discussion $discussion): bool
-    {
-    }
-
-    public function forceDelete(User $user, Discussion $discussion): bool
-    {
-    }
 }

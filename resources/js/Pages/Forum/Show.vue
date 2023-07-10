@@ -5,12 +5,38 @@ import Pagination from "@/Components/Pagination.vue";
 import Post from "@/Components/Forum/Post.vue";
 import pluralize from "pluralize";
 import Navigation from "@/Components/Forum/Navigation.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import useCreatePost from "@/Composables/useCreatePost.js";
+import { onMounted, onUpdated, nextTick, watch } from 'vue';
+import VueScrollTo from 'vue-scrollto'
+
+const { showCreatePostForm } = useCreatePost()
 
 const props = defineProps({
     discussion: Object,
     posts: Object,
-    query: Object
+    query: Object,
+    postId: Number
 })
+
+const scrollToPost = (postId) => {
+    if (!postId) {
+        return
+    }
+
+    nextTick(() => {
+        VueScrollTo.scrollTo(`#post-${postId}`, 500, { offset: -50 })
+    })
+}
+
+onMounted(() => {
+    scrollToPost(props.postId)
+})
+
+watch(() => props.postId, (postId) => {
+    scrollToPost(postId)
+})
+
 </script>
 
 <template>
@@ -45,6 +71,9 @@ const props = defineProps({
         </div>
 
         <template #side>
+            <PrimaryButton @click="showCreatePostForm(discussion)" class="w-full flex justify-center h-10" v-if="discussion.user_can.reply">
+                Reply to discussion
+            </PrimaryButton>
             <Navigation :query="query"/>
         </template>
     </ForumLayout>

@@ -15,6 +15,7 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'user' => PublicUserResource::make($this->whenLoaded('user')),
+            'discussion' => DiscussionResource::make($this->whenLoaded('discussion')),
             'body' => $this->body,
             'body_markdown' => app(MarkdownRenderer::class)->toHtml($this->body),
             'created_at' => DateTimeResource::make($this->created_at),

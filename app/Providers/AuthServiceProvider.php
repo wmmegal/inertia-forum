@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Discussion;
 use App\Models\Topic;
+use App\Policies\DiscussionPolicy;
 use App\Policies\TopicPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -15,7 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        Topic::class => TopicPolicy::class
+        Topic::class => TopicPolicy::class,
+        Discussion::class => DiscussionPolicy::class,
     ];
 
     /**
