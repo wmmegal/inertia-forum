@@ -22,7 +22,7 @@ class DiscussionResource extends JsonResource
             'is_pinned' => $this->isPinned(),
             'user_can' => [
                 'reply' => auth()->user()?->can('reply', $this->resource),
-//                'delete' => auth()->user()?->can('delete', $this->resource),
+                'delete' => auth()->user()?->can('delete', $this->resource),
 //                'solve' => auth()->user()?->can('solve', $this->resource),
             ]
         ];

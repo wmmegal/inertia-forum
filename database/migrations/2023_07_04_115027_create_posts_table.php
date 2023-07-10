@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('discussion_id')->constrained()->onDelete('cascade');
-            $table->foreignId('parent_id')->nullable()->constrained('posts');
+            $table->foreignId('parent_id')->nullable()->constrained('posts')->onDelete('cascade');
             $table->text('body');
             $table->timestamps();
         });
