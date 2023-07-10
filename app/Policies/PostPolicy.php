@@ -10,32 +10,9 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function edit(User $user, Post $post): bool
     {
-
+        return $post->user_id === $user->id;
     }
 
-    public function view(User $user, Post $post): bool
-    {
-    }
-
-    public function create(User $user): bool
-    {
-    }
-
-    public function update(User $user, Post $post): bool
-    {
-    }
-
-    public function delete(User $user, Post $post): bool
-    {
-    }
-
-    public function restore(User $user, Post $post): bool
-    {
-    }
-
-    public function forceDelete(User $user, Post $post): bool
-    {
-    }
 }

@@ -16,7 +16,7 @@ const props = defineProps({
     discussion: Object,
     posts: Object,
     query: Object,
-    postId: Number
+    postId: String
 })
 
 const scrollToPost = (postId) => {
