@@ -39,9 +39,9 @@
                 <li v-if="post.user_can.edit">
                     <button @click="editing = true" class="text-indigo-500 text-sm">Edit</button>
                 </li>
-                <!--                <li v-if="post.user_can.delete">-->
-                <!--                    <button @click="deletePost" class="text-indigo-500 text-sm">Delete</button>-->
-                <!--                </li>-->
+                <li v-if="post.user_can.delete">
+                    <button @click="deletePost" class="text-indigo-500 text-sm">Delete</button>
+                </li>
                 <!--                <li v-if="post.discussion.user_can.solve">-->
                 <!--                    <button-->
                 <!--                        class="text-indigo-500 text-sm"-->
@@ -86,13 +86,13 @@ const editPost = () => {
     })
 }
 
-// const deletePost = () => {
-//     if (window.confirm('Are you sure?')) {
-//         router.delete(route('posts.destroy', props.post), {
-//             preserveScroll: true
-//         })
-//     }
-// }
+const deletePost = () => {
+    if (window.confirm('Are you sure?')) {
+        router.delete(route('posts.destroy', props.post), {
+            preserveScroll: true
+        })
+    }
+}
 
 
 </script>

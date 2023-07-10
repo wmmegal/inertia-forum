@@ -22,7 +22,7 @@ class PostResource extends JsonResource
             'body_preview' => Str::limit($this->body, 200),
             'user_can' => [
                 'edit' => auth()->user()?->can('edit', $this->resource),
-//                'delete' => auth()->user()?->can('delete', $this->resource),
+                'delete' => auth()->user()?->can('delete', $this->resource),
             ]
         ];
     }
