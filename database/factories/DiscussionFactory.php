@@ -14,7 +14,7 @@ class DiscussionFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => null,
+            'user_id' => rand(1, 6),
             'title' => $this->faker->name(),
             'slug' => $this->faker->slug(),
             'topic_id' => rand(1, 3),

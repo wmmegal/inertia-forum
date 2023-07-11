@@ -76,7 +76,7 @@ const deleteDiscussion = () => {
             </div>
 
             <template v-if="posts.data.length">
-                <Post v-for="post in posts.data" :key="post.id" :post="post" />
+                <Post v-for="post in posts.data" :key="post.id" :post="post" :isSolution="discussion.solution?.id === post.id" />
                 <Pagination class="!mt-6" :pagination="posts.meta" v-if="posts.meta.total > posts.meta.per_page" />
             </template>
         </div>

@@ -53,6 +53,7 @@ class DatabaseSeeder extends Seeder
                 ->update([
                     'parent_id' => $firstPost->id
                 ]);
+
         });
     }
 }
