@@ -11,16 +11,15 @@
 
         <template v-slot:main="{ markdownPreviewEnabled }">
             <div>
-                <InputLabel for="body" value="Body" class="sr-only" />
-                <Textarea id="body" class="w-full h-48 align-top" v-model="form.body" />
-<!--                <Mentionable :keys="['@']" offset="6" @search="mentionSearch" :items="mentionSearchResults" v-if="!markdownPreviewEnabled">-->
-<!--                   -->
-
-<!--                    <template #no-result>-->
-<!--                        <div class="mention-item">No username found</div>-->
-<!--                    </template>-->
-<!--                </Mentionable>-->
-                <InputError class="mt-2" :message="form.errors.body" />
+                <InputLabel for="body" value="Body" class="sr-only"/>
+                <Mentionable :keys="['@']" offset="6" @search="mentionSearch" :items="mentionSearchResults"
+                             v-if="!markdownPreviewEnabled">
+                    <Textarea id="body" class="w-full h-48 align-top" v-model="form.body"/>
+                    <template #no-result>
+                        <div class="mention-item">No username found</div>
+                    </template>
+                </Mentionable>
+                <InputError class="mt-2" :message="form.errors.body"/>
             </div>
         </template>
 
@@ -40,19 +39,19 @@ import PrimaryButton from '../PrimaryButton.vue';
 import Textarea from '../Textarea.vue';
 import useCreatePost from '@/Composables/useCreatePost';
 import Svg from '../Svg.vue';
-// import { Mentionable } from 'vue-mention'
-// import useMentionSearch from '@/Composables/useMentionSearch'
-import { watch } from 'vue'
+import {Mentionable} from 'vue-mention'
+import useMentionSearch from '@/Composables/useMentionSearch'
+import {watch} from 'vue'
 
-const { visible, hideCreatePostForm, form, discussion, user } = useCreatePost()
-// const { mentionSearch, mentionSearchResults } = useMentionSearch()
+const {visible, hideCreatePostForm, form, discussion, user} = useCreatePost()
+const {mentionSearch, mentionSearchResults} = useMentionSearch()
 
 watch(user, (user) => {
     if (!user) {
         return
     }
 
-    form.body = `@${user.username}` + form.body
+    form.body = `@${user.username} ` + form.body
 })
 
 const createPost = () => {
