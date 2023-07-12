@@ -10,7 +10,7 @@ class DiscussionSolutionPatchController extends Controller
 {
     public function __invoke(DiscussionSolutionRequest $request, Discussion $discussion)
     {
-        $discussion->solution()->associate(Post::find($request->post_id));
+        $discussion->solution()->associate($discussion->posts()->find($request->post_id));
         $discussion->save();
 
         return back();
