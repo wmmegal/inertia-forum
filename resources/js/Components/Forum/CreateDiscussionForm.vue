@@ -38,14 +38,14 @@
 
             <div class="mt-4">
                 <InputLabel for="body" value="Body" class="sr-only"/>
-                <Textarea id="body" v-if="!markdownPreviewEnabled" class="w-full h-48 align-top" v-model="form.body"/>
-                <!--                <Mentionable :keys="['@']" offset="6" @search="mentionSearch" :items="mentionSearchResults" v-if="!markdownPreviewEnabled">-->
-                <!--                    <Textarea id="body" class="w-full h-48 align-top" v-model="form.body" />-->
+                <Mentionable :keys="['@']" offset="6" @search="mentionSearch" :items="mentionSearchResults"
+                             v-if="!markdownPreviewEnabled">
+                    <Textarea id="body" class="w-full h-48 align-top" v-model="form.body"/>
 
-                <!--                    <template #no-result>-->
-                <!--                        <div class="mention-item">No username found</div>-->
-                <!--                    </template>-->
-                <!--                </Mentionable>-->
+                    <template #no-result>
+                        <div class="mention-item">No username found</div>
+                    </template>
+                </Mentionable>
                 <InputError class="mt-2" :message="form.errors.body"/>
             </div>
         </template>
@@ -68,8 +68,12 @@ import Textarea from '../Textarea.vue';
 import Select from '../Select.vue';
 import useCreateDiscussion from '@/Composables/useCreateDiscussion';
 import Svg from "@/Components/Svg.vue";
+import {Mentionable} from 'vue-mention'
+import useMentionSearch from '@/Composables/useMentionSearch'
+
 
 const {visible, hideCreateDiscussionForm, form} = useCreateDiscussion()
+const { mentionSearch, mentionSearchResults } = useMentionSearch()
 
 const createDiscussion = () => {
     form.post(route('discussions.store'), {

@@ -1,18 +1,24 @@
-import { ref } from 'vue'
-import { MeiliSearch } from 'meilisearch'
-
-const client = new MeiliSearch({
-    host: import.meta.env.VITE_MEILISEARCH_HOST,
-    apiKey: import.meta.env.VITE_MEILISEARCH_PUBLIC_KEY
-})
+import {ref} from 'vue'
 
 const mentionSearchResults = ref([])
 
 export default () => {
-    const index = client.index('users_mentions')
+
 
     const mentionSearch = async (username) => {
-        mentionSearchResults.value = (await index.search(username, { limit: 20 })).hits
+        return await axios.get(route('user_mention', {
+            'search': username
+        })).then(({data}) => {
+            const usernames = Object.keys(data.body),
+                result = [];
+
+            usernames.forEach(usernameResult => result.push({
+                label: `${data.body[usernameResult]} (@${usernameResult})`,
+                value: usernameResult
+            }))
+
+            mentionSearchResults.value = result;
+        })
     }
 
     return {

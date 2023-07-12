@@ -10,10 +10,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
+use Laravel\Scout\Searchable;
 
 class Discussion extends Model
 {
     use HasFactory;
+    use Searchable;
 
     protected $fillable = [
         'title',
@@ -23,6 +25,11 @@ class Discussion extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function toSearchableArray(): array
+    {
+        return $this->only('id', 'title');
+    }
 
     protected static function booted(): void
     {

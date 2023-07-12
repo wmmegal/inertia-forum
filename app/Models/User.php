@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return 'https://www.gravatar.com/avatar/' . md5($this->email) . '.jpg';
     }
+
+    public function mention()
+    {
+        return $this->hasOne(UserMention::class, 'id');
+    }
 }

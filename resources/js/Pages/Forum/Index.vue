@@ -7,8 +7,12 @@ import Pagination from "@/Components/Pagination.vue";
 import Navigation from "@/Components/Forum/Navigation.vue";
 import _omitBy from 'lodash.omitby';
 import _isEmpty from 'lodash.isempty';
+import _debounce from 'lodash.debounce';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import useCreateDiscussion from "@/Composables/useCreateDiscussion.js";
+import InputLabel from "@/Components/InputLabel.vue";
+import TextInput from "@/Components/TextInput.vue";
+import {ref, watch} from "vue";
 
 const props = defineProps({
     discussions: Object,
@@ -25,6 +29,19 @@ const filterTopic = (e) => {
 }
 
 const {showCreateDiscussionForm} = useCreateDiscussion()
+
+const searchQuery = ref(props.query.search || '')
+
+const handleSearchInput = _debounce((query) => {
+    router.reload({
+        data: { search: query },
+        preserveScroll: true
+    })
+}, 500)
+
+watch(searchQuery, (query) => {
+    handleSearchInput(query)
+})
 </script>
 
 <template>
@@ -34,17 +51,24 @@ const {showCreateDiscussionForm} = useCreateDiscussion()
         <div class="space-y-6">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 flex items-center space-x-3">
-                    <Select id="topic" @change="filterTopic">
-                        <option value="">All topics</option>
-                        <option
-                            :value="topic.slug"
-                            v-for="topic in $page.props.topics"
-                            :key="topic.id"
-                            :selected="query.filter?.topic === topic.slug"
-                        >
-                            {{ topic.name }}
-                        </option>
-                    </Select>
+                    <div class="flex-grow">
+                        <InputLabel for="search" value="Search" class="sr-only" />
+                        <TextInput type="search" id="search" class="w-full" v-model="searchQuery" placeholder="Search discussions..." />
+                    </div>
+                    <div>
+                        <Select id="topic" @change="filterTopic">
+                            <option value="">All topics</option>
+                            <option
+                                :value="topic.slug"
+                                v-for="topic in $page.props.topics"
+                                :key="topic.id"
+                                :selected="query.filter?.topic === topic.slug"
+                            >
+                                {{ topic.name }}
+                            </option>
+                        </Select>
+                    </div>
+
                 </div>
             </div>
             <div class="space-y-3">
