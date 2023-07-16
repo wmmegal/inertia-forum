@@ -15,7 +15,7 @@ class DiscussionFactory extends Factory
     {
         return [
             'user_id' => rand(1, 6),
-            'title' => $this->faker->words(5),
+            'title' => ucfirst($this->faker->words(5, true)),
             'slug' => $this->faker->slug(),
             'topic_id' => rand(1, 3),
             'created_at' => Carbon::now(),
