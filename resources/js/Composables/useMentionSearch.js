@@ -9,6 +9,7 @@ export default () => {
         return await axios.get(route('user_mention', {
             'search': username
         })).then(({data}) => {
+            console.log(data);
             const usernames = Object.keys(data.body),
                 result = [];
 

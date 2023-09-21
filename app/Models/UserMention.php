@@ -19,8 +19,8 @@ class UserMention extends Model
     public function toSearchableArray(): array
     {
         return [
-            'value' => $this->username,
-            'label' => $this->name . ' (@' . $this->username . ')',
+            'username' => $this->username,
+            'name' => $this->name . ' (@' . $this->username . ')',
         ];
     }
 }
